@@ -1,20 +1,12 @@
 <div class="contacts">
 Contacts
     <ul>
-        <li><button type="button" ng-click="goToContact(1)">Contact 1</button>
-            <button type="button" ng-click="setFilter(1)">Contact 1</button>
-        </li>
-        <li><button type="button" ng-click="goToContact(2)">Contact 2</button>
-            <button type="button" ng-click="setFilter(1)">Contact 1</button>
-        </li>
-        <li><button type="button" ng-click="goToContact(3)">Contact 3</button>
-            <button type="button" ng-click="setFilter(1)">Contact 1</button>
-        </li>
-        <li><button type="button" ng-click="goToContact(4)">Contact 4</button>
-            <button type="button" ng-click="setFilter(1)">Contact 1</button>
-        </li>
-        <li><button type="button" ng-click="goToContact(5)">Contact 5</button>
-            <button type="button" ng-click="setFilter(1)">Contact 1</button>
+        <li ng-repeat="contact in contactList">
+            <label>{{contact.name}}</label>
+            <div>
+                <span>{{contact.contacts_ranking.rank}}</span>
+                <span>{{contact.contacts_status.status}}</span>
+            </div>
         </li>
     </ul>
     <div>

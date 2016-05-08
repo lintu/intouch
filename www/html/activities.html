@@ -1,3 +1,16 @@
 <div class="activities">
-    Activities
+    <ul>
+        <li ng-repeat="(date, activities) in activityList">
+            <span>{{date}}</span>
+            <!--ng-if="activities.length !== 'undefined'"-->
+            <div>
+                <span style="color: red;">Html content coming in data. check that</span>
+               <div ng-repeat="(key, activityItem) in activities">
+                    <span style="color:blue;">{{activityItem.action}}</span>
+                    <span >{{activityItem.details}}</span>
+               </div>
+               <span></span>
+           </div>
+        </li>
+    </ul>
 </div>
