@@ -30,7 +30,7 @@
             headers : HttpHelperService.getHeaders(),
             dataType: 'json'
         });
-        $scope.goToContact = function(contactId){
+        $scope.goToContactDetails = function(contactId){
             $state.go('contactDetails', {id: contactId});
         };
         $scope.goToCreateContact = function() {

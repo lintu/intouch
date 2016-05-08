@@ -6,7 +6,7 @@
             var data = {
                 login_email: $scope.username,
                 login_password: $scope.password,
-                device_id: UserService.getDeviceId()
+                device_id: AppConfigService.getDeviceId()
             };
             $.ajax({
                 type: "POST",
@@ -23,7 +23,7 @@
                     debugger;
                 },
                 headers : {
-                    'APPID': UserService.getAppId()
+                    'APPID': AppConfigService.getAppId()
                 },
                 dataType: 'json'
             });
@@ -41,7 +41,7 @@
             $.ajax({
                 type: "POST",
                 url: 'http://www.intouch.pro/api/user/get_user_details_by_access_token/',
-                data: {'access_token': UserService.getAccessToken(), 'device_id': UserService.getDeviceId()},
+                data: {'access_token': sessionStorage.getItem('INTOUCH_ACCESS_TOKEN'), 'device_id': AppConfigService.getDeviceId()},
                 success: function(response){
                     if(response.data && response.data.user_arr.length > 0) {
                         //set user id

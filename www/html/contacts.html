@@ -2,7 +2,7 @@
 Contacts
     <ul>
         <li ng-repeat="contact in contactList">
-            <label>{{contact.name}}</label>
+            <button type="button" ng-click="goToContactDetails(contact.id);"><label>{{contact.name}}</label></button>
             <div>
                 <span>{{contact.contacts_ranking.rank}}</span>
                 <span>{{contact.contacts_status.status}}</span>

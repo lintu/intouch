@@ -5,4 +5,16 @@
     <div>
         <button ng-click="addEvent()">Add an event</button>
     </div>
+    <div>
+        <label>Events</label>
+        <ul>
+            <li ng-repeat="event in eventList">
+                <h4>{{event.title}}</h4>
+                <span>{{event.description}}</span>
+                <div>
+                    Remainder on {{event.reminder_date_time}}
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>

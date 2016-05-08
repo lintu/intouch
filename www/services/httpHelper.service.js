@@ -9,6 +9,9 @@
             headers.ACCESSTOKEN = accessToken;
         };
         this.getHeaders = function() {
+            if(!headers.ACCESSTOKEN && sessionStorage.getItem('INTOUCH_ACCESS_TOKEN')) {
+                headers.ACCESSTOKEN = sessionStorage.getItem('INTOUCH_ACCESS_TOKEN');
+            }
             return headers;
         }
 
