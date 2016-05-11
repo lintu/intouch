@@ -1,8 +1,60 @@
-<div class="create-contact">
-<div>
-    <button type="button" ng-click="save()">Save</button>
-</div>
-    <div>
-        <button type="button" ng-click="cancel()">Cancel</button>
+<div class="container">
+
+    <div class="contactDetail">
+        <div class="profileTop">
+            <div class="head">
+                <a href="#" class="backBuWhite"></a>
+                <header class="title03"><h3>Add Contact</h3></header>
+            </div>
+            <div class="indent cf">
+                <div class="profPic"></div>
+                <a href="#" class="btn">ADD  PICTURE</a>
+            </div>
+        </div>
     </div>
+
+
+    <div class="whiteForm">
+        <div class="indent">
+            <div class="label">Contact Name</div>
+            <div class="field cname"><input type="text" class="input"></div>
+            <div class="label">Contact Email</div>
+            <div class="field email"><input type="text" class="input"></div>
+            <div class="label">Address</div>
+            <div class="field loc"><input type="text" class="input"></div>
+            <div class="label">Birthday</div>
+            <div class="field dob"><input type="text" class="input"></div>
+            <div class="label">Status</div>
+            <div class="field stts"><input type="text" class="input"></div>
+            <div class="label">Ranking</div>
+            <div class="field rnk"><input type="text" class="input"></div>
+        </div>
+        <header class="headbar">
+            <a href="#" class="add"></a><h5>SPOUSE</h5>
+        </header>
+        <div class="subAddForm">
+            <div class="picture"></div>
+            <div class="form">
+                <div class="field"><input type="text" class="input"></div>
+                <button class="btn">Add picture</button>
+            </div>
+        </div>
+        <header class="headbar">
+            <a href="#" class="add"></a><h5>Child</h5>
+        </header>
+        <div class="subAddForm">
+            <div class="picture"></div>
+            <div class="form">
+                <div class="field"><input type="text" class="input"></div>
+                <button class="btn">Add picture</button>
+            </div>
+        </div>
+
+        <div class="btnSec">
+            <button class="saveBu" type="button" ng-click="save()">SAVE</button>
+            <button class="cancelBu" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+
+    </div>
+
 </div>

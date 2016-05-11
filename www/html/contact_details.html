@@ -1,20 +1,52 @@
-<div class="contact-details">
-   <div>
-    <button ng-click="editContact()">Edit Contact</button>
-</div>
-    <div>
-        <button ng-click="addEvent()">Add an event</button>
-    </div>
-    <div>
-        <label>Events</label>
-        <ul>
-            <li ng-repeat="event in eventList">
-                <h4>{{event.title}}</h4>
-                <span>{{event.description}}</span>
-                <div>
-                    Remainder on {{event.reminder_date_time}}
+<div class="container">
+
+    <div class="contactDetail">
+        <div class="profilePic">
+            <img src="../img/prof.png">
+            <div class="overlay"></div>
+            <div class="head">
+                <a href="#" class="backBuWhite"></a>
+            </div>
+            <div class="profHead">
+                <div class="indent">
+                    <div class="online"><img src="../img/mdpi/slices_r214_c97.png"></div><div class="name">Fanny <strong>Underwood</strong></div>
+                    <div class="btnSec">
+                        <div class="half" ng-click="editContact()"><a href="#" class="btn">EDIT CONTACT</a></div>
+                        <div class="half">
+                            <div class="props status">Lead <a href="#" class="edit"></a></div>
+                            <div class="props ranking">Lead <a href="#" class="edit"></a></div>
+                        </div>
+                    </div>
                 </div>
-            </li>
-        </ul>
+            </div>
+        </div>
+        <div class="profileInfo">
+            <div class="indent">
+                <div class="li"><div class="icon"><img src="../img/mdpi/slices_r189_c97.png"></div><div class="text">fannyunderwood@gmail.com</div></div>
+                <div class="li"><div class="icon"><img src="../img/mdpi/slices_r193_c97.png"></div><div class="text">Haverfordwest, Pembrokeshire<br>Wales, UK</div></div>
+                <div class="li"><div class="icon"><img src="../img/mdpi/slices_r200_c97.png"></div><div class="text">+91 9876 543 210</div></div>
+
+            </div>
+        </div>
+        <div class="related"><div class="label">Related contacts</div>
+            <div class="pic"><img src="../img/prof.png"></div>
+            <div class="pic"><img src="../img/prof.png"></div>
+            <div class="pic"><img src="../img/prof.png"></div>
+            <div class="more">2+</div></div>
+    </div>
+
+
+    <div class="buttonBar" ng-click="addEvent()">
+        <a href="#" class="addNewBtn">Add Event</a>
+    </div>
+    <div class="actvties">
+        <div class="li" ng-repeat="event in eventList">
+            <div class="date">03:30 pm</div>
+            <h5>{{event.title}}</h5>
+            <article>{{event.description}}</article>
+            <div class="rem">Reminder on {{event.reminder_date_time}}</div>
+            <a href="#" class="editEvnt"></a>
+        </div>
+
     </div>
 </div>

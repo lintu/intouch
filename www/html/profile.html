@@ -1,14 +1,23 @@
-<div class="profile">
-    <div>
-   <button type="button" ng-click="editProfile()">Edit Profile</button>
+<div class="container">
+    <div class="profileHeader">
+        <div class="indent_10x20">
+            <div class="picture">
+                <figure><img src="../img/prof.png"></figure>
+            </div>
+            <div class="name">fdgdgd fdsfs</div>
+            <div class="desig">dfsf</div>
+        </div>
+        <div class="asideButns" >
+            <a ng-click="editProfile()"class="btn">EDIT PROFILE</a>
+            <a ng-click="logout()" href="#" class="btn">LOGOUT</a>
+        </div>
     </div>
-    <div>
-        <button type="button" ng-click="logout()">Logout</button>
-    </div>
-    <div>
-        <button type="button" ng-click="goToActivities()">Activities</button>
-        <button type="button" ng-click="goToContacts()">Contacts</button>
-        <button type="button" ng-click="goToEvents()">Events</button>
+    <div class="primeNav">
+        <div class="nav"><a ui-sref="profile.activities" class="notific activ"></a></div>
+        <div class="nav"><a ui-sref="profile.contacts" class="contact"></a></div>
+        <div class="nav"><a ui-sref="profile.follow"  class="follow"></a></div>
+        <div class="nav"><a ui-sref="profile.status" class="status"></a></div>
+        <div class="nav"><a ui-sref="profile.ranking"  class="ranking"></a></div>
     </div>
     <div ui-view></div>
 </div>

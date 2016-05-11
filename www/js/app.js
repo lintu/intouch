@@ -1,7 +1,7 @@
 (function () {
     var intouch = angular.module('intouch', ['ui.router']);
 
-    intouch.config(function($stateProvider,$urlRouterProvider){
+    intouch.config(function($stateProvider, $urlRouterProvider){
         $urlRouterProvider.otherwise('/splash');
         $stateProvider.state('login', {
             url: '/login',
@@ -47,6 +47,18 @@
             url: '/edit-contact/:id',
             templateUrl: 'html/create_contact.html',
             controller: 'CreateContactController'
+        }).state('profile.status', {
+            url: '/status',
+            templateUrl: 'html/status.html',
+            controller: 'StatusController'
+        }).state('profile.follow', {
+            url: '/status',
+            templateUrl: 'html/follow.html',
+            controller: 'FollowController'
+        }).state('profile.ranking', {
+            url: '/status',
+            templateUrl: 'html/ranking.html',
+            controller: 'RankingController'
         })
 
     });

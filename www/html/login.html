@@ -1,16 +1,15 @@
-<div class="login">
-    <div>
-    <label for="username">Username</label>
-<input class="username" id="username" type="text" ng-model="username">
+<div class="container loginPage">
+    <h1 class="bi"><img src="../img/mdpi/slices_r108_c17.png" alt="logo"></h1>
+    <header class="title01"><h3>Login</h3></header>
+    <div class="fieldSec">
+        <div class="field"><input type="text" class="input" placeholder="Username" ng-model="username"></div>
+        <div class="field"><input type="text" class="input" placeholder="Password" ng-model="password"></div>
     </div>
-      <div>
-        <label for="username">password</label>
-    <input class="password" id="password" type="password" ng-model="password">
-    <div>
-          <button type="submit" ng-click="login()">Login</button>
+    <div class="btnSec indent_tb50">
+        <button type="button" class="signupBu" ng-click="signup()">sign up</button>
+        <button type="button" class="loginBu" ng-click="login()">login</button>
     </div>
-      <div>
-          <button type="button" ng-click="signup()">Register</button>
-      </div>
-</div>
+    <div class="indent_tb50 center">
+        <a href="#" class="link">Need help?</a>
+    </div>
 </div>
