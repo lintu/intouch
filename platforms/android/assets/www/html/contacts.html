@@ -1,0 +1,19 @@
+<div class="titleBar">
+    <button class="srchBtn"></button><button class="filterBtn">Filter</button><h3>Contacts</h3>
+</div>
+<div class="buttonBar">
+    <a href="#" class="addNewBtn" ng-click="goToCreateContact()">Add new Contact</a>
+</div>
+<div class="contactList">
+    <div class="li" ng-repeat="contact in contactList">
+        <div class="listRow" ng-click="goToContactDetails(contact.id);">
+            <figure class="proPic"><img src="../img/prof.png"></figure>
+            <article>
+                <h4>{{contact.name}}</h4>
+                <div class="contactProp">
+                    <div class="props status">{{contact.contacts_ranking.rank}}</div><div class="props ranking">{{contact.contacts_status.status}}</div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
