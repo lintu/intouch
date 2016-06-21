@@ -2,14 +2,21 @@
     <h1 class="bi"><img src="../img/mdpi/slices_r108_c17.png" alt="logo"></h1>
     <header class="title01"><h3>Login</h3></header>
     <div class="fieldSec">
-        <div class="field"><input type="text" class="input" placeholder="Username" ng-model="username"></div>
-        <div class="field"><input type="text" class="input" placeholder="Password" ng-model="password"></div>
+        <div class="errorMsgYellow">{{errorArr.common_login}}</div>
+        <div class="field">
+            <input type="text" required class="input" placeholder="Username" ng-model="username">
+            <div class="errorMsgYellow">{{errorArr.login_email}}</div>
+        </div>
+        <div class="field">
+            <input type="password" required class="input" placeholder="Password" ng-model="password">
+            <div class="errorMsgYellow">{{errorArr.login_password}}{{test}}</div>
+        </div>
     </div>
     <div class="btnSec indent_tb50">
         <button type="button" class="signupBu" ng-click="signup()">sign up</button>
         <button type="button" class="loginBu" ng-click="login()">login</button>
     </div>
     <div class="indent_tb50 center">
-        <a href="#" class="link">Need help?</a>
+        <a href="javascript:;" class="link">Need help?</a>
     </div>
 </div>

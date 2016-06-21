@@ -1,0 +1,52 @@
+.splash {
+    position: absolute;
+}
+
+.errorMsg{
+    color : red;
+    padding-top : 5px;
+}
+.errorMsgYellow{
+    color : #ff9900;
+    padding-top : 5px;
+}
+.successMsg{
+    color : green;
+    font-weight: bold;
+    padding-top : 5px;
+}
+.notFoundMsg{text-align: center; color: #ccc; padding: 50px;}
+
+.indent_30x20x10{ padding:30px 20px 10px; }
+
+.contactDetail .profilePic img      { width:100%; }
+
+.whiteForm .field .input{
+    background-color: #ffffff;
+}
+
+.headbar .add   { position:relative; float:right; width:30px; height:30px; background:url(../img/mdpi/add.png) no-repeat center #FFFF00; }
+.headbar .remove   { position:relative; float:right; width:30px; height:30px; background:url(../img/mdpi/remove.png) no-repeat center #FFFF00; }
+
+.overlay    { position:fixed;}
+
+.loaderImgDiv{text-align: center; padding: 50px;}
+
+.contactList .li .listRow .propName {
+    margin-right: 38px;
+    padding: 10px 0 10px 30px;
+}
+
+.removeBu {
+    background: #ff6666;
+}
+
+.backBuYelw {
+    line-height: 47px;
+    text-align: center;
+}
+.whiteForm .field .col3    { width:31%; margin-right:6px; float:left; border: 1px solid #B9B9C8; }
+.whiteForm .fieldNoBorder {
+    padding: 0;
+    border: none;
+}

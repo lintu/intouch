@@ -1,13 +1,22 @@
-<div class="title05 indent_10x20">
-    <div ng-repeat="(date, activities) in activityList">
-        <h6>{{date}}</h6>
-        <div class="actvties" ng-repeat="(key, activityItem) in activities">
-            <div class="li">
-                <div class="date">03:30 pm</div>
-                <h5>{{activityItem.action}}</h5>
-                <article>{{activityItem.details}}
-                </article>
+    <div id="contentDiv" class="ng-hide" >
+        <div ng-repeat="(date, activities) in activityList">
+            <div class="title05 indent_30x20x10">
+                <h6>{{date}}</h6>
+            </div>
+            <div class="actvties">
+                <div class="li"  ng-repeat="(key, activityItem) in activities">
+                    <div class="date">{{activityItem.time_label}}</div>
+                    <h5>{{activityItem.title}}</h5>
+                    <article >
+                        {{activityItem.details_for_app}}
+                    </article>
+                </div>
             </div>
         </div>
+        <div class="ng-hide notFoundMsg">
+            No activities found.
+        </div>
     </div>
-</div>
+    <div class="loaderImgDiv"  id="loaderDiv" >
+        <img src="../img/mdpi/loader.gif" alt="Loading..">
+    </div>

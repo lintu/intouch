@@ -2,12 +2,21 @@
     angular.module('intouch').controller('LoginController', function($state, $scope, $http, UserService, HttpHelperService, AppConfigService){
         $scope.username = 'srijithvr@gmail.com';
         $scope.password = '123456';
+        $scope.errorArr = [];
         $scope.login = function(){
             var data = {
                 login_email: $scope.username,
                 login_password: $scope.password,
                 device_id: AppConfigService.getDeviceId()
             };
+            loginSubmit(data);
+            
+        };
+
+        loginBu = angular.element(document.querySelector('.loginBu'));
+
+        function loginSubmit(data){
+            loginBu.html('Loading..').attr('disabled','disabled');
             $.ajax({
                 type: "POST",
                 url: 'http://www.intouch.pro/api/guest/login/',
@@ -18,6 +27,11 @@
                         HttpHelperService.setAccessToken(response.data.access_token);
                         fetchUserDetails();
                     }
+                    else{
+                        $scope.errorArr  = response.data.val_errs;
+                        $scope.$apply();
+                    }
+                    loginBu.html('Login').removeAttr('disabled');
                 },
                 error: function() {
                     debugger;
@@ -27,7 +41,8 @@
                 },
                 dataType: 'json'
             });
-        };
+        }
+
         function fetchUserDetails() {
             var locallyStoredEmail = localStorage.getItem('INTOUCH_EMAIl_ID');
             if(locallyStoredEmail === $scope.username) {

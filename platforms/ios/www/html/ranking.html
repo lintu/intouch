@@ -1,29 +1,47 @@
 <div class="titleBar">
-    <button class="srchBtn"></button><button class="filterBtn">Filter</button><h3>Ranking</h3>
+    <!-- <button class="srchBtn"></button> -->
+    <h3>Ranking</h3>
 </div>
 <div class="buttonBar">
-    <a href="#" class="addNewBtn">Add new Ranking</a>
+    <a href="javascript:;" ng-click="addRanking()" class="addNewBtn"><i class="icon_addrank"></i>Add new Ranking</a>
 </div>
 <div class="contactList">
-    <div class="li">
+    <div class="li" ng-repeat="ranking in rankingList">
         <div class="listRow">
-            <a href="#" class="edit">Edit</a><div class="propName ranking">Customer</div>
+            <a  ng-if="ranking.user_id != 0" href="javascript:;" class="icon_edit"  ng-click="editRanking(ranking.rank,ranking.id)"></a>
+            <a  ng-if="ranking.user_id == 0" href="javascript:;" class="removeBu icon_add" ng-click="removeRanking(ranking.id)"></a>
+            <div class="propName icon_rank">{{ranking.rank}}<span ng-if="ranking.user_id == 0">(Default)</span></div>
         </div>
     </div>
-    <div class="li">
-        <div class="listRow">
-            <a href="#" class="edit">Edit</a><div class="propName ranking">Customer</div>
+    <div class="ng-hide notFoundMsg">
+        No ranking found.
+    </div>
+</div>
 
-        </div>
-    </div>
-    <div class="li">
-        <div class="listRow">
-            <a href="#" class="edit">Edit</a><div class="propName ranking">Customer</div>
-        </div>
-    </div>
-    <div class="li">
-        <div class="listRow">
-            <a href="#" class="edit">Edit</a><div class="propName ranking">Customer</div>
+<div class="loaderImgDiv"  id="loaderDiv" >
+    <img src="../img/mdpi/loader.gif" alt="Loading..">
+</div>
+
+<div class="overlay ng-hide" id="popupOverlay"></div>
+<div class="modal01  ng-hide" id="addRanking">
+    <div class="whiteBox">
+        <div class="indent">
+            <div class="form01">
+                <h4 id="rankingTitle">ADD RANKING</h4>
+                <div class="cf">
+                    <div class="errorMsg">{{errorArr.rank}}</div>
+                    <label class="label">Ranking</label>
+                    <div class="field">
+                        <input type="text" class="input" ng-model="rank">
+                    </div>
+                </div>
+                <div class="btnSec cf">
+                    <input type="hidden" ng-model="editRankingId">
+                    <button type="button" class="save" ng-click="saveRanking()">SAVE</button>
+                    <button type="reset" class="cancel" ng-click="closePopup('addRanking')">CANCEL</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+

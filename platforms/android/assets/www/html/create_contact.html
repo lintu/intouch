@@ -3,48 +3,104 @@
     <div class="contactDetail">
         <div class="profileTop">
             <div class="head">
-                <a href="#" class="backBuWhite"></a>
+                <a  ng-click="cancel()" href="javascript:;" class="backBuWhite icon_back"></a>
                 <header class="title03"><h3>Add Contact</h3></header>
             </div>
             <div class="indent cf">
-                <div class="profPic"></div>
-                <a href="#" class="btn">ADD  PICTURE</a>
+                <div class="profPic icon_userpic"></div>
+                <a href="javascript:;" class="btn">ADD  PICTURE</a>
             </div>
         </div>
     </div>
     <div class="whiteForm">
         <div class="indent">
-            <div class="label">Contact Name</div>
-            <div class="field cname"><input type="text" class="input"></div>
-            <div class="label">Contact Email</div>
-            <div class="field email"><input type="text" class="input"></div>
+            <div class="label">Name</div>
+            <div class="field icon_user">
+                <input type="text" class="input" ng-model="name">
+            </div>
+            <div class="errorMsg">{{errorArr.name}}</div>
+           
+            <div class="label">Email</div>
+            <div class="field icon_mail">
+                <input type="email" class="input" ng-model="email">
+            </div>
+            <div class="errorMsg">{{errorArr.email}}</div>
+            
+            <div class="label">Phone Number</div>
+            <div class="field icon_phone">
+                <input type="text" class="input" ng-model="phone">
+            </div>
+            <div class="errorMsg">{{errorArr.phone}}</div>
+            
             <div class="label">Address</div>
-            <div class="field loc"><input type="text" class="input"></div>
+            <div class="field icon_loc">
+                <input type="text" class="input" ng-model="address">
+            </div>
+            <div class="errorMsg">{{errorArr.address}}</div>
+            
             <div class="label">Birthday</div>
-            <div class="field dob"><input type="text" class="input"></div>
+            <div class="field fieldNoBorder">
+                <div class="col3">
+                    <select class="input" ng-model="birth_month">
+                        <option ng-repeat="prop in monthList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                    </select>
+                </div>
+                <div class="col3">
+                    <select class="input" ng-model="birth_day" >
+                        <option ng-repeat="prop in dayList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                    </select>
+                </div>
+
+                <div class="col3">
+                    <select class="input" ng-model="birth_year">
+                        <option ng-repeat="prop in yearList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="errorMsg">{{errorArr.birthday}}</div>
+
             <div class="label">Status</div>
-            <div class="field stts"><input type="text" class="input"></div>
+            <div class="field icon_status">
+                <select class="input" ng-model="status_id" >
+                    <option ng-repeat="prop in contactStatusList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                </select>
+            </div>
+            <div class="errorMsg">{{errorArr.status_id}}</div>
+
             <div class="label">Ranking</div>
-            <div class="field rnk"><input type="text" class="input"></div>
+            <div class="field icon_rank">
+                <select class="input" ng-model="rank_id">
+                    <option ng-repeat="prop in contactRankingList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                </select>
+            </div>
+            <div class="errorMsg">{{errorArr.rank_id}}</div>
         </div>
         <header class="headbar">
-            <a href="#" class="add"></a><h5>SPOUSE</h5>
+            <h5>SPOUSE</h5>
         </header>
         <div class="subAddForm">
-            <div class="picture"></div>
+            <div class="picture icon_userpic"></div>
             <div class="form">
-                <div class="field"><input type="text" class="input"></div>
+                <div class="field">
+                    <input type="text" class="input" ng-model="spouse_name">
+                </div>
                 <button class="btn">Add picture</button>
             </div>
         </div>
-        <header class="headbar">
-            <a href="#" class="add"></a><h5>Child</h5>
-        </header>
-        <div class="subAddForm">
-            <div class="picture"></div>
-            <div class="form">
-                <div class="field"><input type="text" class="input"></div>
-                <button class="btn">Add picture</button>
+        <div id="childrenOuter">
+            <div id="children">
+                <header class="headbar">
+                    <a href="javascript:;" ng-click="addChildElement()" class="add"></a><h5>Children</h5>
+                </header>
+                <div class="subAddForm">
+                    <div class="picture icon_userpic"></div>
+                    <div class="form">
+                        <div class="field">
+                            <input type="text" class="input" ng-model="child_name[0]">
+                        </div>
+                        <button class="btn">Add picture</button>
+                    </div>
+                </div>
             </div>
         </div>
 

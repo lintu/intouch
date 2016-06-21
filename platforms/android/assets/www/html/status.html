@@ -1,28 +1,50 @@
 <div class="titleBar">
-    <button class="srchBtn"></button><button class="filterBtn">Filter</button><h3>Status</h3>
+    <!-- <button class="srchBtn"></button> -->
+    <h3>Status</h3>
 </div>
 <div class="buttonBar">
-    <a href="#" class="addNewBtn">Add new Status</a>
+    <a href="javascript:;" ng-click="addStatus()" class="addNewBtn"><i class="icon_addstatus"></i>Add new Status</a>
 </div>
+
+
+
 <div class="contactList">
-    <div class="li">
+    <div class="li" ng-repeat="status in statusList">
         <div class="listRow">
-            <a href="#" class="edit">Edit</a><div class="propName status">Cold</div>
+            <a  ng-if="status.user_id != 0" href="javascript:;" class="icon_edit"  ng-click="editStatus(status.status,status.id)"></a>
+            <a  ng-if="status.user_id == 0" href="javascript:;" class="removeBu icon_add" ng-click="removeStatus(status.id)"></a>
+            <div class="propName icon_status">{{status.status}}<span ng-if="status.user_id == 0">(Default)</span></div>
         </div>
     </div>
-    <div class="li">
-        <div class="listRow">
-            <a href="#" class="edit">Edit</a><div class="propName status">Cold</div>
-        </div>
+    <div class="ng-hide notFoundMsg">
+        No status found.
     </div>
-    <div class="li">
-        <div class="listRow">
-            <a href="#" class="edit">Edit</a><div class="propName status">Cold</div>
-        </div>
-    </div>
-    <div class="li">
-        <div class="listRow">
-            <a href="#" class="edit">Edit</a><div class="propName status">Cold</div>
+</div>
+
+<div class="loaderImgDiv"  id="loaderDiv" >
+    <img src="../img/mdpi/loader.gif" alt="Loading..">
+</div>
+
+<div class="overlay ng-hide" id="popupOverlay"></div>
+<div class="modal01  ng-hide" id="addStatus">
+    <div class="whiteBox">
+        <div class="indent">
+            <div class="form01">
+                <h4 id="statusTitle">ADD STATUS</h4>
+                <div class="cf">
+                    <div class="errorMsg">{{errorArr.status}}</div>
+                    <label class="label">Status</label>
+                    <div class="field">
+                        <input type="text" class="input" ng-model="status">
+                    </div>
+                </div>
+                
+                <div class="btnSec cf">
+                    <input type="hidden" ng-model="editStatusId">
+                    <button type="button" class="save" ng-click="saveStatus()">SAVE</button>
+                    <button type="reset" class="cancel" ng-click="closePopup('addStatus')">CANCEL</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

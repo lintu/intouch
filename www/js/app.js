@@ -45,18 +45,18 @@
             controller: 'CreateContactController'
         }).state('editContact', {
             url: '/edit-contact/:id',
-            templateUrl: 'html/create_contact.html',
-            controller: 'CreateContactController'
+            templateUrl: 'html/edit_contact.html',
+            controller: 'EditContactController'
         }).state('profile.status', {
             url: '/status',
             templateUrl: 'html/status.html',
             controller: 'StatusController'
         }).state('profile.follow', {
-            url: '/status',
+            url: '/followup',
             templateUrl: 'html/follow.html',
             controller: 'FollowController'
         }).state('profile.ranking', {
-            url: '/status',
+            url: '/ranking',
             templateUrl: 'html/ranking.html',
             controller: 'RankingController'
         })
@@ -67,6 +67,13 @@
     //function setUp(){
 
     //}
+function objectToArray (objectArr) {
+        var ary = [];
+        angular.forEach(objectArr, function (val, key) {
+            ary.push({key: key, val: val});
+        });
+        return ary;
+    }
 
 
 

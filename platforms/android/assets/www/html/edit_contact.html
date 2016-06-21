@@ -1,0 +1,125 @@
+<div class="container">
+
+    <div class="contactDetail">
+        <div class="profileTop">
+            <div class="head">
+                <a  ng-click="cancel()" href="javascript:;" class="backBuWhite icon_back"></a>
+                <header class="title03"><h3>Edit Contact</h3></header>
+            </div>
+            <div class="indent cf">
+                <div class="profPic " ng-if="contactList.photo">
+                    <img src="http://www.intouch.pro/uploads/thumb/{{contactList.photo}}">
+                </div>
+                <div class="profPic icon_userpic"  ng-if="!contactList.photo" > </div>
+                <a href="javascript:;" class="btn">CHANGE  PHOTO</a>
+            </div>
+        </div>
+    </div>
+    <div class="whiteForm">
+        <div class="indent">
+            <div class="label">Name</div>
+            <div class="field icon_user">
+                <input type="text" class="input" ng-model="name">
+            </div>
+            <div class="errorMsg">{{errorArr.name}}</div>
+           
+            <div class="label">Email</div>
+            <div class="field icon_mail">
+                <input type="email" class="input" ng-model="email">
+            </div>
+            <div class="errorMsg">{{errorArr.email}}</div>
+            
+            <div class="label">Phone Number</div>
+            <div class="field icon_phone">
+                <input type="text" class="input" ng-model="phone">
+            </div>
+            <div class="errorMsg">{{errorArr.phone}}</div>
+            
+            <div class="label">Address</div>
+            <div class="field icon_loc">
+                <input type="text" class="input" ng-model="address">
+            </div>
+            <div class="errorMsg">{{errorArr.address}}</div>
+            
+            <div class="label">Birthday</div>
+            <div class="field fieldNoBorder">
+                <div class="col3">
+                    <select class="input" ng-model="birth_month">
+                        <option ng-repeat="prop in monthList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                    </select>
+                </div>
+
+                <div class="col3">
+                    <select class="input" ng-model="birth_day">
+                        <option ng-repeat="prop in dayList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                    </select>
+                </div>
+                
+                <div class="col3">
+                    <select class="input" ng-model="birth_year">
+                        <option ng-repeat="prop in yearList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="errorMsg">{{errorArr.birthday}}</div>
+
+            <div class="label">Status</div>
+            <div class="field icon_status">
+                <select class="input" ng-model="status_id">
+                    <option ng-repeat="prop in contactStatusList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                </select>
+            </div>
+            <div class="errorMsg">{{errorArr.status_id}}</div>
+
+            <div class="label">Ranking</div>
+            <div class="field icon_rank">
+                <select class="input" ng-model="rank_id">
+                <option ng-repeat="prop in contactRankingList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                </select>
+            </div>
+            <div class="errorMsg">{{errorArr.rank_id}}</div>
+        </div>
+        <header class="headbar">
+            <h5>SPOUSE</h5>
+        </header>
+        <div class="subAddForm">
+            <div class="picture" ng-if="contactList.contacts_spouses[0].photo">
+                <img src="http://www.intouch.pro/uploads/thumb/{{contactList.contacts_spouses[0].photo}}">
+            </div>
+            <div class="picture icon_userpic" ng-if="!contactList.contacts_spouses[0].photo" ></div>
+
+            <div class="form">
+                <div class="field">
+                    <input type="text" class="input" ng-model="spouse_name" placeholder="Spouse Name">
+                </div>
+                <button class="btn">Change Photo</button>
+            </div>
+        </div>
+        <div id="childrenOuter">
+            <div id="children">
+                <header class="headbar">
+                    <a href="javascript:;" ng-click="addChildElement()" class="add"></a><h5>Children</h5>
+                </header>
+                <div class="subAddForm">
+                    <div class="picture " ng-if="contactList.contacts_children[0].photo">
+                        <img src="http://www.intouch.pro/uploads/thumb/{{contactList.contacts_children[0].photo}}">
+                    </div>
+                    <div class="picture icon_userpic"  ng-if="!contactList.contacts_children[0].photo" > </div>
+                    <div class="form">
+                        <div class="field">
+                            <input type="text" class="input" ng-model="child_name[0]" placeholder="Child Name">
+                        </div>
+                        <button class="btn">Change Photo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btnSec">
+            <button class="saveBu" type="button" ng-click="save()">SAVE CHANGES</button>
+            <button class="cancelBu" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+
+    </div>
+
+</div>

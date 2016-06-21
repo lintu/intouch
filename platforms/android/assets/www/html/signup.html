@@ -1,16 +1,30 @@
 <div class="container signupPage">
     <header class="title01"><h3>Sign Up</h3></header>
     <div class="fieldSec">
-        <div class="field"><input type="text" class="input" placeholder="Fullname"></div>
-        <div class="field"><input type="text" class="input" placeholder="email"></div>
-        <div class="field"><input type="text" class="input" placeholder="Mobile Number"></div>
-        <div class="field"><input type="text" class="input" placeholder="Password"></div>
+        <div class="errorMsg">{{errorArr.common}}</div>
+        <div class="successMsg">{{success_msg}}</div>
+        <div class="field">
+            <input type="text" required class="input" placeholder="Fullname" ng-model="name">
+            <div class="errorMsg">{{errorArr.name}}</div>
+        </div>
+        <div class="field">
+            <input type="email" required class="input" placeholder="Email" ng-model="email">
+            <div class="errorMsg">{{errorArr.email}}</div>
+        </div>
+        <div class="field">
+            <input type="text" class="input" placeholder="Mobile Number" ng-model="mobile">
+            <div class="errorMsg">{{errorArr.mobile}}</div>
+        </div>
+        <div class="field">
+            <input type="password" required class="input" placeholder="Password" ng-model="password">
+            <div class="errorMsg">{{errorArr.password}}</div>
+        </div>
     </div>
     <div class="btnSec indent_tb50">
-        <button class="loginBu">login</button>
-        <button class="signupBu">sign up</button>
+        <button class="loginBu"  ng-click="login()">login</button>
+        <button class="signupBu" ng-click="signupSubmit()">sign up</button>
     </div>
     <div class="indent_tb50 center">
-        <a href="#" class="link">Need help?</a>
+        <a href="javascript:;" class="link">Need help?</a>
     </div>
 </div>

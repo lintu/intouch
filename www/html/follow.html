@@ -1,52 +1,26 @@
 <div class="titleBar">
-    <button class="srchBtn"></button><button class="filterBtn">Filter</button><h3>Followup Dates</h3>
-</div>
-<div class="buttonBar">
-    <a href="#" class="addNewBtn">Add new Contact</a>
+    <!-- <button class="srchBtn"></button><button class="filterBtn">Filter</button> -->
+    <h3>Follow Updates</h3>
 </div>
 <div class="contactList">
-    <div class="li">
-        <div class="listRow">
-            <figure class="proPic"><img src="../img/prof.png"></figure>
+    <div class="li" ng-repeat="followup in followUpList">
+        <div class="listRow" ng-click="goToContactDetails(followup.contact.id);">
+            <figure class="proPic">
+                <img ng-if="followup.contact.photo" src="http://www.intouch.pro/uploads/thumb/{{followup.contact.photo}}">
+                <img ng-if="!contact.photo" src="http://www.intouch.pro/user_template/images/userpic.png">
+            </figure>
             <article>
-                <h4>Michael Caine</h4>
-                <div class="contactProp">
-                    <div class="props status">Cold</div><div class="props ranking">Cold</div>
+                <h4>{{followup.contact.name}}</h4>
+                <div>
+                {{followup.title}}
                 </div>
             </article>
         </div>
     </div>
-    <div class="li">
-        <div class="listRow">
-            <figure class="proPic"><img src="../img/prof.png"></figure>
-            <article>
-                <h4>Michael Caine</h4>
-                <div class="contactProp">
-                    <div class="props status">Cold</div><div class="props ranking">Cold</div>
-                </div>
-            </article>
-        </div>
+    <div class="ng-hide notFoundMsg">
+        No followups found.
     </div>
-    <div class="li">
-        <div class="listRow">
-            <figure class="proPic"><img src="../img/prof.png"></figure>
-            <article>
-                <h4>Michael Caine</h4>
-                <div class="contactProp">
-                    <div class="props status">Cold</div><div class="props ranking">Cold</div>
-                </div>
-            </article>
-        </div>
-    </div>
-    <div class="li">
-        <div class="listRow">
-            <figure class="proPic"><img src="../img/prof.png"></figure>
-            <article>
-                <h4>Michael Caine</h4>
-                <div class="contactProp">
-                    <div class="props status">Cold</div><div class="props ranking">Cold</div>
-                </div>
-            </article>
-        </div>
-    </div>
+</div>
+<div class="loaderImgDiv"  id="loaderDiv" >
+    <img src="../img/mdpi/loader.gif" alt="Loading..">
 </div>

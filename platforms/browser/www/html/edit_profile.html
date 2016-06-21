@@ -3,12 +3,12 @@
     <div class="contactDetail">
         <div class="profileTop">
             <div class="head">
-                <a href="#" class="backBuWhite"></a>
+                <a ng-click="goToActivities()" href="javascript:;" class="backBuWhite icon_back"></a>
                 <header class="title03"><h3>Edit Profile</h3></header>
             </div>
             <div class="indent cf">
                 <div class="profPic"></div>
-                <a href="#" class="btn">Change Picture</a>
+                <a href="javascript:;" class="btn">Change Picture</a>
             </div>
         </div>
     </div>
@@ -17,31 +17,42 @@
     <div class="whiteForm">
         <header class="title02">
             <div class="indent">
-                <div class="icon"><img src="../img/mdpi/slices_r127_c97.png"></div><h6>Personal Informations</h6>
+                <i class="icon_userfill"></i><h6>Personal Informations</h6>
             </div>
         </header>
         <div class="indent">
-            <div class="label">Contact Name</div>
-            <div class="field cname"><input type="text" class="input"></div>
-            <div class="label">Contact Email</div>
-            <div class="field email"><input type="text" class="input"></div>
-            <div class="label">Address</div>
-            <div class="field loc"><input type="text" class="input"></div>
-            <div class="label">Birthday</div>
-            <div class="field dob"><input type="text" class="input"></div>
+            <div class="label">Your Name</div>
+            <div class="field icon_user">
+                <input type="text" class="input"  ng-model="name">
+                <div class="errorMsg">{{errorArr.name}}</div>
+            </div>
+            <div class="label">Your Mobile Number</div>
+            <div class="field icon_phone">
+                <input type="text" class="input" ng-model="mobile">
+                <div class="errorMsg">{{errorArr.mobile}}</div>
+            </div>
         </div>
         <header class="title02">
             <div class="indent">
-                <div class="icon"><img src="../img/mdpi/slices_r162_c98.png"></div><h6>Security</h6>
+                <i class="icon_lockfill"></i><h6>Change Password</h6>
             </div>
         </header>
         <div class="indent">
-            <div class="field pwd"><input type="text" class="input"></div>
+            <div class="label">New Password</div>
+            <div class="field icon_lock">
+                <input type="password" class="input" ng-model="new_password">
+                <div class="errorMsg">{{errorArr.new_password}}</div>
+            </div>
+            <div class="label">Confirm Password</div>
+            <div class="field icon_lock">
+                <input type="password" class="input" ng-model="confirm_password">
+                <div class="errorMsg">{{errorArr.confirm_password}}</div>
+            </div>
         </div>
 
         <div class="btnSec">
-            <button class="saveBu">SAVE</button>
-            <button class="cancelBu">Cancel</button>
+            <button class="saveBu" ng-click="updateProfile()">SAVE</button>
+            <button class="cancelBu" ng-click="goToActivities()">Cancel</button>
         </div>
 
     </div>
