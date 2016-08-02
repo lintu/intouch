@@ -27,7 +27,7 @@
                     signupBu.html('SIGN UP').removeAttr('disabled');
                 },
                 error: function() {
-                    debugger;
+                    alert('Error occured, plz try again.');
                 },
                 headers : {
                     'APPID': AppConfigService.getAppId()

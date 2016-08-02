@@ -20,40 +20,25 @@
             return;
         }
         var userId = UserService.getUserId();
-       
 
-        getStatusDetails();
-
-        function getStatusDetails(){
-		    var url = 'http://www.intouch.pro/api/contact_status/get_status_by_user_statusids/';
-		    var data = {
-	          user_id: userId
-	        };
-		    $scope.statusList = [];
-		    $.ajax({
-		        type: "POST",
-		        url: url,
-		        data: data,
-		        success: function(response){
-		            if(response.data) {
-		                $scope.statusList = response.data;
-	                    loaderDiv.addClass('ng-hide');
-	                    contentDiv.removeClass('ng-hide');
-		                $scope.$apply();
-	                    if(response.data.length <= 0){
-	                    	notFoundMsg.removeClass('ng-hide');
-	                	}
-		            }
-		        },
-		        error: function() {
-		            debugger;
-		        },
-		        headers : HttpHelperService.getHeaders(),
-		        dataType: 'json'
-		    });
-
+        showData();
+        var showDataCnt = 0;
+        function showData(){
+            if(statusList){
+                $scope.statusList = statusList;
+                if(showDataCnt > 0){
+                    $scope.$apply();
+                }
+                loaderDiv.addClass('ng-hide');
+                contentDiv.removeClass('ng-hide');
+                if(statusList.length <= 0){
+                    notFoundMsg.removeClass('ng-hide');
+                }
+            }
+            else{
+                setTimeout(function(){ showDataCnt++; showData(); }, 1000);
+            }
         }
-
 
         var overlay = angular.element(document.querySelector('#popupOverlay'));
         var addStatus = angular.element(document.querySelector('#addStatus'));
@@ -74,35 +59,26 @@
             $scope.editStatusId = '';
         };
 
-        $scope.closePopup = function(popup_id){
-           closePopup(popup_id);
-        };
-        function closePopup(popup_id){
-            var smlPopup = angular.element(document.querySelector('#'+popup_id));
-            overlay.addClass('ng-hide');
-            smlPopup.addClass('ng-hide');
-	        save = angular.element(document.querySelector('.save'));
-            save.html('Save').removeAttr('disabled');
+        $scope.closePopup = function(popup_id,save_btn){
+           closePopup(popup_id,save_btn);
         };
 
         //---Save contact event---------------------------------------
         $scope.saveStatus = function(){
-            var all_data = {
+            var data = {
                 user_id: userId,
                 status:$scope.status,
+                status_id: $scope.editStatusId,
                 device_id: AppConfigService.getDeviceId()
             };
             if($scope.editStatusId){
-                var add_edit_data = {
-                    status_id: $scope.editStatusId
-                };
                 url = 'http://www.intouch.pro/api/contact_status/edit_user_status/';
             }
             else{
                 url = 'http://www.intouch.pro/api/contact_status/add_user_status/';
             }
 
-            var data =  Object.assign(all_data, add_edit_data);
+            //var data =  Object.assign(all_data, add_edit_data);
 	        save = angular.element(document.querySelector('.save'));
             save.html('Loading..').attr('disabled','disabled');
 
@@ -112,8 +88,11 @@
                 data: data,
                 success: function(response){
                     if(response.data && response.data.val_err === false) {
-                        getStatusDetails();
-                        closePopup('addStatus');
+                        getStatusList(userId,HttpHelperService.getHeaders(),false);
+                        getContactStatusList(userId,HttpHelperService.getHeaders(),true);
+                       // getActivityList(userId,HttpHelperService.getHeaders(),true);
+                        $scope.statusList = statusList;
+                        closePopup('addStatus','saveStatusBtn');
                     }
                     else{
                         $scope.errorArr  = response.data.val_errs;
@@ -122,7 +101,7 @@
 	                save.html('Save').removeAttr('disabled');
                 },
                 error: function() {
-                    debugger;
+                    alert('Error occured, plz try again.');
                 },
                 headers : HttpHelperService.getHeaders(),
                 dataType: 'json'
@@ -146,7 +125,10 @@
 	                data: data,
 	                success: function(response){
 	                    if(response.data && response.data.val_err === false) {
-	                        getStatusDetails();
+	                        getStatusList(userId,HttpHelperService.getHeaders(),false);
+                            getContactStatusList(userId,HttpHelperService.getHeaders(),true);
+                           // getActivityList(userId,HttpHelperService.getHeaders(),true);
+                            $scope.statusList = statusList;
 	                    }
 	                    else{
 	                        $scope.errorArr  = response.data.val_errs;
@@ -154,7 +136,7 @@
 	                    $scope.$apply();
 	                },
 	                error: function() {
-	                    debugger;
+	                    alert('Error occured, plz try again.');
 	                },
 	                headers : HttpHelperService.getHeaders(),
 	                dataType: 'json'

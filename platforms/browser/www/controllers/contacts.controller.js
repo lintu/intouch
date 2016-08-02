@@ -23,107 +23,44 @@
           user_id: userId
         };
 
-        $scope.contactList = [];
-        var url = 'http://www.intouch.pro/api/contact/get_contacts_by_user_id/';
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(response){
-                if(response.data) {
-                    $scope.contactList = response.data;
-                    loaderDiv.addClass('ng-hide');
-                    contentDiv.removeClass('ng-hide');
+        showData();
+        var showDataCnt = 0;
+        function showData(){
+            if(contactList){
+                $scope.contactList = contactList;
+                if(showDataCnt > 0){
                     $scope.$apply();
-                    if(response.data.length <= 0){
-                        notFoundMsg.removeClass('ng-hide');
-                    }
                 }
-            },
-            error: function() {
-                debugger;
-            },
-            headers : HttpHelperService.getHeaders(),
-            dataType: 'json'
-        });
+                loaderDiv.addClass('ng-hide');
+                contentDiv.removeClass('ng-hide');
+                if(contactList.length <= 0){
+                    notFoundMsg.removeClass('ng-hide');
+                }
+            }
+            else{
+                setTimeout(function(){ showDataCnt++; showData(); }, 1000);
+            }
+        }
 
         //-----Dropdown list of Rnking---------------------------------------
-        var url = 'http://www.intouch.pro/api/contact_ranking/get_rank_list_by_user_rankids/';
-        $scope.contactRankingList = [];
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(response){
-                if(response.data) {
-                    $scope.contactRankingList = objectToArray(response.data);
-                    $scope.$apply();
-                }
-            },
-            error: function() {
-                debugger;
-            },
-            headers : HttpHelperService.getHeaders(),
-            dataType: 'json'
-        });
+        $scope.contactRankingList = contactRankingList;
         //--------------------------------------------------------------------
 
         //-----Dropdown list of Status---------------------------------------
-        var url = 'http://www.intouch.pro/api/contact_status/get_status_list_by_user_statusids/';
-        $scope.contactStatusList = [];
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(response){
-                if(response.data) {
-                    $scope.contactStatusList = objectToArray(response.data);
-                    $scope.$apply();
-                }
-            },
-            error: function() {
-                debugger;
-            },
-            headers : HttpHelperService.getHeaders(),
-            dataType: 'json'
-        });
+        $scope.contactStatusList = contactStatusList;
         //--------------------------------------------------------------------
         //-----Dropdown list of date---------------------------------------
-        var url = 'http://www.intouch.pro/api/contact/get_date_arr/';
-        $scope.dayList = [];
-        $scope.monthList = [];
-        $scope.yearList = [];
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(response){
-                if(response.data) {
-                    $scope.dayList = objectToArray(response.data.day_arr);
-                    $scope.monthList = objectToArray(response.data.month_arr);
-                    $scope.yearList = objectToArray(response.data.year_arr);
-                    $scope.$apply();
-                }
-            },
-            error: function() {
-                debugger;
-            },
-            headers : HttpHelperService.getHeaders(),
-            dataType: 'json'
-        });
+        $scope.dayList = dayList;
+        $scope.monthList = monthList;
+        $scope.yearList = yearList;
         //--------------------------------------------------------------------
 
-        var overlay = angular.element(document.querySelector('#popupOverlay'));
-        var searchContact = angular.element(document.querySelector('#searchContact'));
         $scope.searchFormShow = function() {
-            overlay.removeClass('ng-hide');
-            searchContact.removeClass('ng-hide');
+            openPopup('searchContact');
         };
 
-        var filterContact = angular.element(document.querySelector('#filterContact'));
         $scope.filterFormShow = function() {
-            overlay.removeClass('ng-hide');
-            filterContact.removeClass('ng-hide');
+            openPopup('filterContact');
         };
 
         $scope.searchContact = function(popupID,actionType){
@@ -182,7 +119,7 @@
 
                 },
                 error: function() {
-                    debugger;
+                    alert('Error occured, plz try again.');
                 },
                 headers : HttpHelperService.getHeaders(),
                 dataType: 'json'
@@ -191,11 +128,6 @@
 
         $scope.closePopup = function(popup_id){
            closePopup(popup_id);
-        };
-        function closePopup(popup_id){
-            var smlPopup = angular.element(document.querySelector('#'+popup_id));
-            overlay.addClass('ng-hide');
-            smlPopup.addClass('ng-hide');
         };
 
         $scope.goToContactDetails = function(contactId){

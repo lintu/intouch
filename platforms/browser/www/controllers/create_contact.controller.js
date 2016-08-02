@@ -14,82 +14,43 @@
           user_id: userId
         };
 
-        //-----Dropdown list of date---------------------------------------
-        var url = 'http://www.intouch.pro/api/contact/get_date_arr/';
-        $scope.dayList = [];
-        $scope.monthList = [];
-        $scope.yearList = [];
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(response){
-                if(response.data) {
-                    $scope.dayList = objectToArray(response.data.day_arr);
-                    $scope.monthList = objectToArray(response.data.month_arr);
-                    $scope.yearList = objectToArray(response.data.year_arr);
-                    $scope.$apply();
-                }
-            },
-            error: function() {
-                debugger;
-            },
-            headers : HttpHelperService.getHeaders(),
-            dataType: 'json'
-        });
-        //--------------------------------------------------------------------
-
         //-----Dropdown list of Rnking---------------------------------------
-        var url = 'http://www.intouch.pro/api/contact_ranking/get_rank_list_by_user_rankids/';
-        $scope.contactRankingList = [];
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(response){
-                if(response.data) {
-                    $scope.contactRankingList = objectToArray(response.data);
-                    $scope.$apply();
-                }
-            },
-            error: function() {
-                debugger;
-            },
-            headers : HttpHelperService.getHeaders(),
-            dataType: 'json'
-        });
+        $scope.contactRankingList = contactRankingList;
         //--------------------------------------------------------------------
 
         //-----Dropdown list of Status---------------------------------------
-        var url = 'http://www.intouch.pro/api/contact_status/get_status_list_by_user_statusids/';
-        $scope.contactStatusList = [];
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(response){
-                if(response.data) {
-                    $scope.contactStatusList = objectToArray(response.data);
-                    $scope.$apply();
-                }
-            },
-            error: function() {
-                debugger;
-            },
-            headers : HttpHelperService.getHeaders(),
-            dataType: 'json'
-        });
+        $scope.contactStatusList = contactStatusList;
         //--------------------------------------------------------------------
-
+        //-----Dropdown list of date---------------------------------------
+        $scope.dayList = dayList;
+        $scope.monthList = monthList;
+        $scope.yearList = yearList;
+        //--------------------------------------------------------------------
+        $scope.name = '';
+        $scope.email = '';
+        $scope.phone = '';
+        $scope.address = '';
+        $scope.status_id = '';
+        $scope.rank_id = '';
+        $scope.child_name = [];
+        $scope.child_name[0] = '';
+        $scope.spouse_name = '';
+        $scope.birth_month = '';
+        $scope.birth_day = '';
+        $scope.birth_year = '';
 
         $scope.save = function(){
+            var birthday_val = '';
+            if($scope.birth_month || $scope.birth_day || $scope.birth_year){
+                birthday_val = $scope.birth_month+'-'+$scope.birth_day+'-'+$scope.birth_year;
+            }
             var data = {
                 user_id: userId,
                 name: $scope.name,
                 email: $scope.email,
                 phone: $scope.phone,
                 address: $scope.address,
-                birthday: $scope.birth_month+'-'+$scope.birth_day+'-'+$scope.birth_year,
+                birthday: birthday_val,
                 status_id: $scope.status_id,
                 rank_id: $scope.rank_id,
                 child_name: $scope.child_name,
@@ -97,9 +58,9 @@
                 contact_photo: '',
                 contact_photo_file: '',
                 contact_spouse_photo: '',
-                contact_spouse_photo_file: '',
+               // contact_spouse_photo_file: '',
                 contact_child_photo: '',
-                contact_child_photo_file: '',
+               // contact_child_photo_file: '',
                 device_id: AppConfigService.getDeviceId()
             };
             
@@ -112,6 +73,8 @@
                 data: data,
                 success: function(response){
                     if(response.data && response.data.val_err === false) {
+                        getContactList(userId,HttpHelperService.getHeaders(),false);
+                        getActivityList(userId,HttpHelperService.getHeaders(),true);
                         $state.go('profile.contacts');
                     }
                     else{
@@ -122,7 +85,7 @@
 
                 },
                 error: function() {
-                    debugger;
+                    alert('Error occured, plz try again.');
                 },
                 headers : HttpHelperService.getHeaders(),
                 dataType: 'json'

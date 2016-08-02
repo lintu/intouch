@@ -19,26 +19,28 @@
 </div>
 
 <div class="loaderImgDiv"  id="loaderDiv" >
-    <img src="../img/mdpi/loader.gif" alt="Loading..">
+    <img src="img/loader.gif" alt="Loading..">
 </div>
 
-<div class="overlay ng-hide" id="popupOverlay"></div>
-<div class="modal01  ng-hide" id="addRanking">
-    <div class="whiteBox">
-        <div class="indent">
-            <div class="form01">
-                <h4 id="rankingTitle">ADD RANKING</h4>
-                <div class="cf">
-                    <div class="errorMsg">{{errorArr.rank}}</div>
-                    <label class="label">Ranking</label>
-                    <div class="field">
-                        <input type="text" class="input" ng-model="rank">
+<div class="popupOuter ng-hide"  id="popupOverlay"> 
+    <div class="overlay"></div>
+    <div class="modal01  ng-hide" id="addRanking">
+        <div class="whiteBox">
+            <div class="indent">
+                <div class="form01">
+                    <h4 id="rankingTitle">ADD RANKING</h4>
+                    <div class="cf">
+                        <div class="errorMsg">{{errorArr.rank}}</div>
+                        <label class="label">Ranking</label>
+                        <div class="field">
+                            <input type="text" class="input" ng-model="rank">
+                        </div>
                     </div>
-                </div>
-                <div class="btnSec cf">
-                    <input type="hidden" ng-model="editRankingId">
-                    <button type="button" class="save" ng-click="saveRanking()">SAVE</button>
-                    <button type="reset" class="cancel" ng-click="closePopup('addRanking')">CANCEL</button>
+                    <div class="btnSec cf">
+                        <input type="hidden" ng-model="editRankingId">
+                        <button id="saveRankingBtn" type="button" class="save" ng-click="saveRanking()">SAVE</button>
+                        <button type="reset" class="cancel" ng-click="closePopup('addRanking','saveRankingBtn')">CANCEL</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 (function(){
     angular.module('intouch').controller('LoginController', function($state, $scope, $http, UserService, HttpHelperService, AppConfigService){
-        $scope.username = 'srijithvr@gmail.com';
-        $scope.password = '123456';
+        /*$scope.username = 'srijithvr@gmail.com';
+        $scope.password = '123456';*/
         $scope.errorArr = [];
         $scope.login = function(){
             var data = {
@@ -30,17 +30,20 @@
                     else{
                         $scope.errorArr  = response.data.val_errs;
                         $scope.$apply();
+                        loginBu.html('Login').removeAttr('disabled');
                     }
-                    loginBu.html('Login').removeAttr('disabled');
                 },
-                error: function() {
-                    debugger;
+                error: function(xhr, status, error) {
+                  alert('Error occured, plz try again.');
                 },
                 headers : {
                     'APPID': AppConfigService.getAppId()
                 },
                 dataType: 'json'
             });
+
+
+
         }
 
         function fetchUserDetails() {
@@ -49,6 +52,7 @@
                 var locallyStoredId = localStorage.getItem('INTOUCH_USER_ID');
                 if (locallyStoredId) {
                     UserService.setUserId(locallyStoredId);
+                    get_user_arr(locallyStoredId);
                     $state.go('profile.activities');
                     return;
                 }
@@ -64,18 +68,35 @@
                         UserService.setUserId(userDetails.id);
                         localStorage.setItem('INTOUCH_EMAIl_ID', userDetails.email);
                         localStorage.setItem('INTOUCH_USER_ID', userDetails.id);
+                        get_user_arr(userDetails.id);
                         $state.go('profile.activities');
                     } else {
                         alert('Failed to fetch user details');
                     }
                 },
                 error: function() {
-                    debugger;
+                    alert('Error occured, plz try again.');
                 },
                 headers : HttpHelperService.getHeaders(),
                 dataType: 'json'
             });
         }
+
+        function get_user_arr(userId){
+            getuserDetails(userId,HttpHelperService.getHeaders(),false);
+            getActivityList(userId,HttpHelperService.getHeaders(),true);
+            getContactList(userId,HttpHelperService.getHeaders(),true);
+            getContactRankingList(userId,HttpHelperService.getHeaders(),true);
+            getContactStatusList(userId,HttpHelperService.getHeaders(),true);
+            getDateList(userId,HttpHelperService.getHeaders(),true);
+            getRankingList(userId,HttpHelperService.getHeaders(),true);
+            getStatusList(userId,HttpHelperService.getHeaders(),true);
+            getFollowupList(userId,HttpHelperService.getHeaders(),true);
+            getHourList(userId,HttpHelperService.getHeaders(),true);
+            getMinuteList(userId,HttpHelperService.getHeaders(),true);
+            loginBu.html('Login').removeAttr('disabled');
+        }
+
         $scope.signup = function(){
 
             //TODO

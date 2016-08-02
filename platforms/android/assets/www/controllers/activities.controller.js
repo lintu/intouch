@@ -18,31 +18,39 @@
         }
         var userId = UserService.getUserId();
 
-        var data = {
-            user_id: userId
-        };
 
-        $scope.activityList = [];
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(response){
-                if(response.data) {
-                    $scope.activityList = response.data;
-                    loaderDiv.addClass('ng-hide');
-                    contentDiv.removeClass('ng-hide');
+        showData();
+        var showDataCnt = 0;
+        function showData(){
+            if(activityList){
+                $scope.activityList = activityList;
+                if(showDataCnt > 0){
                     $scope.$apply();
-                    if(response.data.length <= 0){
-                        notFoundMsg.removeClass('ng-hide');
-                    }
                 }
-            },
-            error: function() {
-                debugger;
-            },
-            headers : HttpHelperService.getHeaders(),
-            dataType: 'json'
-        });
+                loaderDiv.addClass('ng-hide');
+                contentDiv.removeClass('ng-hide');
+                if(activityList.length <= 0){
+                    notFoundMsg.removeClass('ng-hide');
+                }
+            }
+            else{
+                setTimeout(function(){ showDataCnt++; showData(); }, 1000);
+            }
+        }
+
+        function goToContactDetails(contactId){
+            $state.go('contactDetails', {id: contactId});
+        }
+
     });
 })();
+
+
+(function(){
+    angular.module('intouch').filter('rawHtml', ['$sce', function($sce){
+      return function(val) {
+        return $sce.trustAsHtml(val);
+      };
+    }]);
+})();
+

@@ -25,10 +25,28 @@
     background-color: #ffffff;
 }
 
-.headbar .add   { position:relative; float:right; width:30px; height:30px; background:url(../img/mdpi/add.png) no-repeat center #FFFF00; }
-.headbar .remove   { position:relative; float:right; width:30px; height:30px; background:url(../img/mdpi/remove.png) no-repeat center #FFFF00; }
+.headbar .add   { position:relative; float:right; width:30px; height:30px; background:url(../img/add.png) no-repeat center #FFFF00; }
+.headbar .remove   { position:relative; float:right; width:30px; height:30px; background:url(../img/remove.png) no-repeat center #FFFF00; }
 
-.overlay    { position:fixed;}
+
+
+.overlay    { 
+    position:fixed;
+    background: rgba(255,255,255,1.0);
+}
+.popupOpen    { overflow: hidden;}
+.popupOuter{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+    overflow-x: hidden;
+    overflow-y: auto; 
+}
+.modal01{top:0;}
+
 
 .loaderImgDiv{text-align: center; padding: 50px;}
 
@@ -45,8 +63,10 @@
     line-height: 47px;
     text-align: center;
 }
-.whiteForm .field .col3    { width:31%; margin-right:6px; float:left; border: 1px solid #B9B9C8; }
+.whiteForm .field .col3    { width:31%; margin-right:1%; float:left; border: 1px solid #B9B9C8; }
 .whiteForm .fieldNoBorder {
     padding: 0;
     border: none;
 }
+.form01 .btnSec{margin-left: 0;}
+.width_100{width: 100%;}

@@ -11,7 +11,6 @@
         var notFoundMsg = angular.element(document.querySelector('.notFoundMsg'));
 
         
-        var url = 'http://www.intouch.pro/api/contact_events/get_todays_followps_by_user_id/';
         var locallyStoredId = localStorage.getItem('INTOUCH_USER_ID');
         if (locallyStoredId) {
             UserService.setUserId(locallyStoredId);
@@ -20,32 +19,27 @@
             return;
         }
         var userId = UserService.getUserId();
-        var data = {
-          user_id: userId
-        };
 
-        $scope.followUpList = [];
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(response){
-                if(response.data) {
-                    $scope.followUpList = response.data;
-                    loaderDiv.addClass('ng-hide');
-                    contentDiv.removeClass('ng-hide');
+        showData();
+        var showDataCnt = 0;
+        function showData(){
+            if(followUpList){
+                $scope.followUpList = followUpList;
+                if(showDataCnt > 0){
                     $scope.$apply();
-                    if(response.data.length <= 0){
-                    	notFoundMsg.removeClass('ng-hide');
-                	}
                 }
-            },
-            error: function() {
-                debugger;
-            },
-            headers : HttpHelperService.getHeaders(),
-            dataType: 'json'
-        });
+                loaderDiv.addClass('ng-hide');
+                contentDiv.removeClass('ng-hide');
+                if(followUpList.length <= 0){
+                    notFoundMsg.removeClass('ng-hide');
+                }
+            }
+            else{
+                setTimeout(function(){ showDataCnt++; showData(); }, 1000);
+            }
+        }
+
+
 
         $scope.goToContactDetails = function(contactId){
             $state.go('contactDetails', {id: contactId});

@@ -7,8 +7,19 @@
                 <header class="title03"><h3>Edit Profile</h3></header>
             </div>
             <div class="indent cf">
-                <div class="profPic"></div>
-                <a href="javascript:;" class="btn">Change Picture</a>
+                <div class="profPic" id="profilePicDiv">
+                    <img ng-if="userDetails.photo" src="http://www.intouch.pro/uploads/{{userDetails.photo}}">
+                    <img ng-if="!userDetails.photo" src="http://www.intouch.pro/user_template/images/userpic.png">
+                </div>
+                <a href="javascript:;" onclick="openImgUploadPopup('imgUploadPopup','profilePic')" class="btn">Change Picture</a>
+                    <input type="hidden" id="profilePicVal" ng-model="profilePicVal">
+                    <input type="hidden" id="profilePicName" ng-model="profilePicName">
+                <!-- <label class="btn">
+                    Change Picture
+                    <input type="file" id="profileImg" onchange="previewFile('profileImg','profPicDiv','profilePicVal','profilePicName');" style="display:none;" />
+                    <input type="hidden" id="profilePicVal" ng-model="profilePicVal">
+                    <input type="hidden" id="profilePicName" ng-model="profilePicName">
+                </label> -->
             </div>
         </div>
     </div>
@@ -58,3 +69,4 @@
     </div>
 
 </div>
+

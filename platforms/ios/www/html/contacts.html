@@ -16,8 +16,10 @@
             <article>
                 <h4>{{contact.name}}</h4>
                 <div class="contactProp">
-                    <div class="props icon_status">{{contact.contacts_ranking.rank}}</div>
-                    <div class="props icon_rank">{{contact.contacts_status.status}}</div>
+                    <div ng-if="contact.contacts_ranking.rank" class="props icon_rank">{{contact.contacts_ranking.rank}}</div>
+                    <div ng-if="!contact.contacts_ranking.rank" class="props icon_rank">No Ranking</div>
+                    <div ng-if="contact.contacts_status.status" class="props icon_status">{{contact.contacts_status.status}}</div>
+                    <div ng-if="!contact.contacts_status.status" class="props icon_status">No Status</div>
                 </div>
             </article>
         </div>
@@ -28,107 +30,118 @@
 
 </div>
 <div class="loaderImgDiv"  id="loaderDiv" >
-    <img src="../img/mdpi/loader.gif" alt="Loading..">
+    <img src="img/loader.gif" alt="Loading..">
 </div>
 
-<div class="overlay ng-hide" id="popupOverlay"></div>
-<div class="modal01 ng-hide" id="searchContact">
-    <div class="whiteBox">
-        <div class="indent">
-            <div class="form01">
-                <h4>SEARCH</h4>
-                <div class="cf">
-                    <label class="label">Keyword</label>
-                    <div class="field">
-                        <input class="input" type="text" ng-model="keyword_search">
+
+<div class="popupOuter ng-hide"  id="popupOverlay"> 
+    <div class="overlay"></div>
+    <div class="modal01 ng-hide" id="searchContact">
+        <div class="whiteBox">
+            <div class="indent">
+                <div class="form01">
+                    <h4>SEARCH</h4>
+                    <div class="cf">
+                        <label class="label">Keyword</label>
+                        <div class="field">
+                            <input class="input" type="text" ng-model="keyword_search">
+                        </div>
                     </div>
-                </div>
-                
-                <div class="btnSec cf">
-                    <button id="searchBtn" type="button" class="save searchContactBtn" ng-click="searchContact('searchContact','SEARCH')">SEARCH</button>
-                    <button type="reset" class="cancel" ng-click="closePopup('searchContact')">CANCEL</button>
+                    
+                    <div class="btnSec cf">
+                        <button id="searchBtn" type="button" class="save searchContactBtn" ng-click="searchContact('searchContact','SEARCH')">SEARCH</button>
+                        <button type="reset" class="cancel" ng-click="closePopup('searchContact')">CANCEL</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal01 ng-hide" id="filterContact">
-    <div class="whiteBox">
-        <div class="indent">
-            <div class="form01">
-                <h4>FILTER</h4>
-                <div class="cf">
-                    <label class="label">Status</label>
-                    <div class="field">
-                        <select class="input" ng-model="search_status">
-                            <option ng-repeat="prop in contactStatusList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
-                        </select>              
+
+    <div class="modal01 ng-hide" id="filterContact">
+        <div class="whiteBox">
+            <div class="indent">
+                <div class="form01">
+                    <h4>FILTER</h4>
+                    <div class="cf">
+                        <label class="label">Status</label>
+                        <div class="field">
+                            <select class="input" ng-model="search_status">
+                                <option ng-repeat="prop in contactStatusList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                            </select>              
+                        </div>
                     </div>
-                </div>
-                <div class="cf">
-                    <label class="label">Ranking</label>
-                    <div class="field">
-                        <select class="input" ng-model="search_rank">
-                            <option ng-repeat="prop in contactRankingList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="cf">
-                    <label class="label">Followup Date From</label>
-                    <div class="field cf">
-                        <div class="col3">
-                            <select class="input" ng-model="followup_date_from_month">
-                                <option ng-repeat="prop in monthList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                    <div class="cf">
+                        <label class="label">Ranking</label>
+                        <div class="field">
+                            <select class="input" ng-model="search_rank">
+                                <option ng-repeat="prop in contactRankingList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="cf">
+                        <label class="label">Followup Date From</label>
+                        <div class="field cf">
+                            <div class="col3">
+                                <select class="input" ng-model="followup_date_from_month">
+                                    <option ng-repeat="prop in monthList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                                </select>
+                            </div>
 
-                        <div class="col3">
-                            <select class="input" ng-model="followup_date_from_day">
-                                <option ng-repeat="prop in dayList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
-                            </select>
+                            <div class="col3">
+                                <select class="input" ng-model="followup_date_from_day">
+                                    <option ng-repeat="prop in dayList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col3">
+                                <select class="input" ng-model="followup_date_from_year">
+                                    <option ng-repeat="prop in yearList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                                </select>
+                            </div>
                         </div>
-                        
-                        <div class="col3">
-                            <select class="input" ng-model="followup_date_from_year">
+                    </div>
+                    <div class="cf">
+                        <label class="label">Followup Date To</label>
+                        <div class="field cf">
+                             
+                            <div class="col3">
+                                <select class="input" ng-model="followup_date_to_month">
+                                    <option ng-repeat="prop in monthList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col3">
+                                <select class="input" ng-model="followup_date_to_day">
+                                    <option ng-repeat="prop in dayList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col3">
+                                <select class="input" ng-model="followup_date_to_year">
                                 <option ng-repeat="prop in yearList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
-                            </select>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="cf">
-                    <label class="label">Followup Date To</label>
-                    <div class="field cf">
-                         
-                        <div class="col3">
-                            <select class="input" ng-model="followup_date_to_month">
-                                <option ng-repeat="prop in monthList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
-                            </select>
-                        </div>
 
-                        <div class="col3">
-                            <select class="input" ng-model="followup_date_to_day">
-                                <option ng-repeat="prop in dayList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
-                            </select>
-                        </div>
-
-                        <div class="col3">
-                            <select class="input" ng-model="followup_date_to_year">
-                            <option ng-repeat="prop in yearList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
-                            </select>
-                        </div>
+                    
+                    <div class="btnSec cf">
+                        <button id="searchBtn" type="button" class="save filterContactBtn" ng-click="searchContact('filterContact','FILTER')">FILTER</button>
+                        <button type="reset" class="cancel" ng-click="closePopup('filterContact')">CANCEL</button>
                     </div>
-                </div>
-
-                
-                <div class="btnSec cf">
-                    <button id="searchBtn" type="button" class="save filterContactBtn" ng-click="searchContact('filterContact','FILTER')">FILTER</button>
-                    <button type="reset" class="cancel" ng-click="closePopup('filterContact')">CANCEL</button>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
 </div>
+
+
+
 
                        
 

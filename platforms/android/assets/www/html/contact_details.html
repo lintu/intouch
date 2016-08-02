@@ -13,7 +13,7 @@
             
             <div class="profHead">
                 <div class="indent">
-                    <div class="online"><img src="../img/mdpi/slices_r214_c97.png"></div>
+                    <div class="online"><!-- <img src="../img/slices_r214_c97.png"> --></div>
                     <div class="name">
                         <strong>{{contactList.name}}</strong>
                     </div>
@@ -21,11 +21,13 @@
                         <div class="half" ng-click="editContact()"><a href="javascript:;" class="btn">EDIT CONTACT</a></div>
                         <div class="half">
                             <div class="props icon_status">
-                                <span id="statusListSpan">{{contactList.contacts_status.status}}</span>
+                                <span ng-if="contactList.contacts_status.status" id="statusListSpan">{{contactList.contacts_status.status}}</span>
+                                <span ng-if="!contactList.contacts_status.status" id="statusListSpan">No Status</span>
                                 <a href="javascript:;" class="icon_edit" ng-click="editStatus(contactList.contacts_status.id)"></a>
                             </div>
                             <div class="props icon_rank">
-                                <span id="rankingListSpan">{{contactList.contacts_ranking.rank}}</span>
+                                <span ng-if="contactList.contacts_ranking.rank" id="rankingListSpan">{{contactList.contacts_ranking.rank}}</span>
+                                <span ng-if="!contactList.contacts_ranking.rank" id="rankingListSpan">No Ranking</span>
                                 <a href="javascript:;" class="icon_edit" ng-click="editRanking(contactList.contacts_ranking.id)"></a>
                             </div>
                         </div>
@@ -69,126 +71,128 @@
 
     </div>
     <div class="loaderImgDiv"  id="loaderDiv" >
-        <img src="../img/mdpi/loader.gif" alt="Loading..">
+        <img src="img/loader.gif" alt="Loading..">
     </div>
 
 </div>
 
-<div class="overlay ng-hide" id="popupOverlay"></div>
-<div class="modal01 ng-hide" id="addEvent">
-    <div class="whiteBox">
-        <div class="indent">
-            <div class="form01">
-                <h4 id="eventFormTitle" >ADD EVENT</h4>
-                <div class="errorMsg">{{errorArr.event}}</div>
-                <div class="cf">
-                    <label class="label">Event Title</label>
-                    <div class="field"><input type="text" class="input" ng-model="title"></div>
-                </div>
-                <div class="cf">
-                    <label class="label">Event info</label>
-                    <div class="field"><textarea class="input" ng-model="description"></textarea></div>
-                </div>
+<div class="popupOuter ng-hide"  id="popupOverlay"> 
+    <div class="overlay"></div>
+    <div class="modal01 ng-hide" id="addEvent">
+        <div class="whiteBox">
+            <div class="indent">
+                <div class="form01">
+                    <h4 id="eventFormTitle" >ADD EVENT</h4>
+                    <div class="errorMsg">{{errorArr.event}}</div>
+                    <div class="cf">
+                        <label class="label">Event Title</label>
+                        <div class="field"><input type="text" class="input" ng-model="title"></div>
+                    </div>
+                    <div class="cf">
+                        <label class="label">Event info</label>
+                        <div class="field"><textarea class="input" ng-model="description"></textarea></div>
+                    </div>
 
-                <div class="divider"></div>
-                <h6>Reminder</h6>
-                <div class="errorMsg">{{errorArr.reminder}}</div>
-                <div class="cf">
-                    <label class="label">Date</label>
-                    <div class="field cf">
-                        <div class="col3">
-                            <select class="input" ng-model="reminder_date_month">
-                                <option ng-repeat="prop in monthList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
-                            </select>
-                        </div>
+                    <div class="divider"></div>
+                    <h6>Reminder</h6>
+                    <div class="errorMsg">{{errorArr.reminder}}</div>
+                    <div class="cf">
+                        <label class="label">Date</label>
+                        <div class="field cf">
+                            <div class="col3">
+                                <select class="input" ng-model="reminder_date_month">
+                                    <option ng-repeat="prop in monthList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                                </select>
+                            </div>
 
-                        <div class="col3">
-                            <select class="input" ng-model="reminder_date_day">
-                                <option ng-repeat="prop in dayList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
-                            </select>
-                        </div>
-                        
-                        <div class="col3">
-                            <select class="input" ng-model="reminder_date_year">
-                                <option ng-repeat="prop in yearList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
-                            </select>
+                            <div class="col3">
+                                <select class="input" ng-model="reminder_date_day">
+                                    <option ng-repeat="prop in dayList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col3">
+                                <select class="input" ng-model="reminder_date_year">
+                                    <option ng-repeat="prop in yearList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
 
 
-                <div class="cf">
-                    <label class="label">Time</label>
-                    <div class="field cf">
-                        <div class="col3">
-                            <select class="input" ng-model="reminder_hour">
-                                <option ng-repeat="prop in hourList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
-                            </select>
-                        </div>
-                        <div class="col3">
-                            <select class="input" ng-model="reminder_minute">
-                                <option ng-repeat="prop in minuteList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
-                            </select>
-                        </div>
-                        <div class="col3">
-                            <select ng-model="am_pm" class="input">
-                                <option value="AM" >AM</option>
-                                <option value="PM" >PM</option>
-                            </select>
+                    <div class="cf">
+                        <label class="label">Time</label>
+                        <div class="field cf">
+                            <div class="col3">
+                                <select class="input" ng-model="reminder_hour">
+                                    <option ng-repeat="prop in hourList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                                </select>
+                            </div>
+                            <div class="col3">
+                                <select class="input" ng-model="reminder_minute">
+                                    <option ng-repeat="prop in minuteList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                                </select>
+                            </div>
+                            <div class="col3">
+                                <select ng-model="am_pm" class="input">
+                                    <option value="AM" >AM</option>
+                                    <option value="PM" >PM</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="btnSec cf">
-                    <input type="hidden" ng-model="editEventId">
-                    <button id="saveEventBtn" type="button" class="save" ng-click="saveEvent()">SAVE</button>
-                    <button type="reset" class="cancel" ng-click="closePopup('addEvent')">CANCEL</button>
+                    
+                    <div class="btnSec cf">
+                        <input type="hidden" ng-model="editEventId">
+                        <button id="saveEventBtn" type="button" class="save" ng-click="saveEvent()">SAVE</button>
+                        <button type="reset" class="cancel" ng-click="closePopup('addEvent','saveEventBtn')">CANCEL</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal01 ng-hide" id="editStatus">
-    <div class="whiteBox">
-        <div class="indent">
-            <div class="form01">
-                <h4>EDIT STATUS</h4>
-                <div class="cf">
-                    <label class="label">Status</label>
-                    <div class="field">
-                        <select class="input" ng-model="status_id">
-                            <option ng-repeat="prop in contactStatusList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
-                        </select>              
+    <div class="modal01 ng-hide" id="editStatus">
+        <div class="whiteBox">
+            <div class="indent">
+                <div class="form01">
+                    <h4>EDIT STATUS</h4>
+                    <div class="cf">
+                        <label class="label">Status</label>
+                        <div class="field">
+                            <select class="input" ng-model="status_id">
+                                <option ng-repeat="prop in contactStatusList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                            </select>              
+                        </div>
                     </div>
-                </div>
-                
-                <div class="btnSec cf">
-                    <button id="saveStatusBtn" type="button" class="save" ng-click="saveStatus()">SAVE</button>
-                    <button type="reset" class="cancel" ng-click="closePopup('editStatus')">CANCEL</button>
+                    
+                    <div class="btnSec cf">
+                        <button id="saveStatusBtn" type="button" class="save" ng-click="saveStatus()">SAVE</button>
+                        <button type="reset" class="cancel" ng-click="closePopup('editStatus','saveStatusBtn')">CANCEL</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal01 ng-hide" id="editRanking">
-    <div class="whiteBox">
-        <div class="indent">
-            <div class="form01">
-                <h4>EDIT RANKING</h4>
-                <div class="cf">
-                    <label class="label">Ranking</label>
-                    <div class="field">
-                        <select class="input" ng-model="rank_id">
-                        <option ng-repeat="prop in contactRankingList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
-                        </select>
+    <div class="modal01 ng-hide" id="editRanking">
+        <div class="whiteBox">
+            <div class="indent">
+                <div class="form01">
+                    <h4>EDIT RANKING</h4>
+                    <div class="cf">
+                        <label class="label">Ranking</label>
+                        <div class="field">
+                            <select class="input" ng-model="rank_id">
+                            <option ng-repeat="prop in contactRankingList|orderBy:'key'"  value="{{prop.key}}">{{prop.val}}</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="btnSec cf">
-                    <button id="saveRankingBtn" type="button" class="save" ng-click="saveRanking()">SAVE</button>
-                    <button type="reset" class="cancel" ng-click="closePopup('editRanking')">CANCEL</button>
+                    
+                    <div class="btnSec cf">
+                        <button id="saveRankingBtn" type="button" class="save" ng-click="saveRanking()">SAVE</button>
+                        <button type="reset" class="cancel" ng-click="closePopup('editRanking','saveRankingBtn')">CANCEL</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -32,8 +32,9 @@
                     $scope.$apply();
                 }
             },
-            error: function() {
-                debugger;
+            error: function(xhr, status, error) {
+                  var err = xhr.responseText;
+                  alert(err.Message);
             },
             headers : HttpHelperService.getHeaders(),
             dataType: 'json'
@@ -64,7 +65,7 @@
                     }
                 },
                 error: function() {
-                    debugger;
+                    alert('Error occured, plz try again.');
                 },
                 headers : HttpHelperService.getHeaders(),
                 dataType: 'json'
@@ -76,71 +77,19 @@
             $state.go('editContact', {id: $scope.contactId});
         };
 
-        //-----Dropdown list of date---------------------------------------
-        var url = 'http://www.intouch.pro/api/contact/get_date_arr/';
-        $scope.dayList = [];
-        $scope.monthList = [];
-        $scope.yearList = [];
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(response){
-                if(response.data) {
-                    $scope.dayList = objectToArray(response.data.day_arr);
-                    $scope.monthList = objectToArray(response.data.month_arr);
-                    $scope.yearList = objectToArray(response.data.year_arr);
-                    $scope.$apply();
-                }
-            },
-            error: function() {
-                debugger;
-            },
-            headers : HttpHelperService.getHeaders(),
-            dataType: 'json'
-        });
+        //-----Dropdown list of Rnking---------------------------------------
+        $scope.contactRankingList = contactRankingList;
         //--------------------------------------------------------------------
 
-        //-----Dropdown list of Hours---------------------------------------
-        var url = 'http://www.intouch.pro/api/contact_events/get_hour_list/';
-        $scope.hourList = [];
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(response){
-                if(response.data) {
-                    $scope.hourList = objectToArray(response.data);
-                    $scope.$apply();
-                }
-            },
-            error: function() {
-                debugger;
-            },
-            headers : HttpHelperService.getHeaders(),
-            dataType: 'json'
-        });
+        //-----Dropdown list of Status---------------------------------------
+        $scope.contactStatusList = contactStatusList;
         //--------------------------------------------------------------------
-
-        //-----Dropdown list of Minutes---------------------------------------
-        var url = 'http://www.intouch.pro/api/contact_events/get_minute_list/';
-        $scope.minuteList = [];
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(response){
-                if(response.data) {
-                    $scope.minuteList = objectToArray(response.data);
-                    $scope.$apply();
-                }
-            },
-            error: function() {
-                debugger;
-            },
-            headers : HttpHelperService.getHeaders(),
-            dataType: 'json'
-        });
+        //-----Dropdown list of hour and date---------------------------------------
+        $scope.hourList = hourList;
+        $scope.minuteList = minuteList;
+        $scope.dayList = dayList;
+        $scope.monthList = monthList;
+        $scope.yearList = curYearList;
         //--------------------------------------------------------------------
         
         var userId = UserService.getUserId();
@@ -148,54 +97,10 @@
           user_id: userId
         };
 
-        //-----Dropdown list of Rnking---------------------------------------
-        var url = 'http://www.intouch.pro/api/contact_ranking/get_rank_list_by_user_rankids/';
-        $scope.contactRankingList = [];
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(response){
-                if(response.data) {
-                    $scope.contactRankingList = objectToArray(response.data);
-                    $scope.$apply();
-                }
-            },
-            error: function() {
-                debugger;
-            },
-            headers : HttpHelperService.getHeaders(),
-            dataType: 'json'
-        });
-        //--------------------------------------------------------------------
 
-        //-----Dropdown list of Status---------------------------------------
-        var url = 'http://www.intouch.pro/api/contact_status/get_status_list_by_user_statusids/';
-        $scope.contactStatusList = [];
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(response){
-                if(response.data) {
-                    $scope.contactStatusList = objectToArray(response.data);
-                    $scope.$apply();
-                }
-            },
-            error: function() {
-                debugger;
-            },
-            headers : HttpHelperService.getHeaders(),
-            dataType: 'json'
-        });
-        //--------------------------------------------------------------------
-
-        var overlay = angular.element(document.querySelector('#popupOverlay'));
-        var addEvent = angular.element(document.querySelector('#addEvent'));
         var eventFormTitle = angular.element(document.querySelector('#eventFormTitle'));
         $scope.addEvent = function() {
-            overlay.removeClass('ng-hide');
-            addEvent.removeClass('ng-hide');
+            openPopup('addEvent');
             eventFormTitle.html('ADD EVENT');
             $scope.editEventId = '';
             $scope.title = '';
@@ -209,8 +114,7 @@
         };
 
         $scope.editEvent = function(event_id) {
-            overlay.removeClass('ng-hide');
-            addEvent.removeClass('ng-hide');
+            openPopup('addEvent');
             eventFormTitle.html('EDIT EVENT');
 
             var url = 'http://www.intouch.pro/api/contact_events/get_events_by_event_id/';
@@ -233,8 +137,8 @@
                         reminder_arr = reminder_date.split(' ');
 
                         reminder_date_arr = reminder_arr[0].split('-');
-                        $scope.reminder_date_day = reminder_date_arr[1];
-                        $scope.reminder_date_month = reminder_date_arr[2];
+                        $scope.reminder_date_day = reminder_date_arr[2];
+                        $scope.reminder_date_month = reminder_date_arr[1];
                         $scope.reminder_date_year = reminder_date_arr[0];
                         
                         reminder_time_arr = reminder_arr[1].split(':');
@@ -246,7 +150,7 @@
                     }
                 },
                 error: function() {
-                    debugger;
+                    alert('Error occured, plz try again.');
                 },
                 headers : HttpHelperService.getHeaders(),
                 dataType: 'json'
@@ -254,34 +158,25 @@
         };
 
         
-        var editStatus = angular.element(document.querySelector('#editStatus'));
         $scope.editStatus = function(status_id) {
-            overlay.removeClass('ng-hide');
-            editStatus.removeClass('ng-hide');
+            openPopup('editStatus');
             $scope.status_id = status_id;
         };
 
-        var editRanking = angular.element(document.querySelector('#editRanking'));
         $scope.editRanking = function(rank_id) {
-            overlay.removeClass('ng-hide');
-            editRanking.removeClass('ng-hide');
+            openPopup('editRanking');
             $scope.rank_id = rank_id;
         };
 
 
-        $scope.closePopup = function(popup_id){
-           closePopup(popup_id);
-        };
-        function closePopup(popup_id){
-            var smlPopup = angular.element(document.querySelector('#'+popup_id));
-            overlay.addClass('ng-hide');
-            smlPopup.addClass('ng-hide');
+        $scope.closePopup = function(popup_id,save_btn){
+           closePopup(popup_id,save_btn);
         };
 
         
         //---Save contact event---------------------------------------
         $scope.saveEvent = function(){
-            var all_data = {
+            var data = {
                 user_id: userId,
                 contact_id:$scope.contactId,
                 title: $scope.title,
@@ -290,19 +185,17 @@
                 reminder_hour: $scope.reminder_hour,
                 reminder_minute: $scope.reminder_minute,
                 am_pm: $scope.am_pm,
+                event_id: $scope.editEventId,
                 device_id: AppConfigService.getDeviceId()
             };
             if($scope.editEventId){
-                var add_edit_data = {
-                    event_id: $scope.editEventId
-                };
                 url = 'http://www.intouch.pro/api/contact_events/edit_event/';
             }
             else{
                 url = 'http://www.intouch.pro/api/contact_events/add_event/';
             }
 
-            var data =  Object.assign(all_data, add_edit_data);
+            //var data =  Object.assign(all_data, add_edit_data);
             
             save = angular.element(document.querySelector('#saveEventBtn'));
             save.html('Loading..').attr('disabled','disabled');
@@ -314,7 +207,9 @@
                 success: function(response){
                     if(response.data && response.data.val_err === false) {
                         getEventDetails();
-                        closePopup('addEvent');
+                        getActivityList(userId,HttpHelperService.getHeaders(),true);
+                        getFollowupList(userId,HttpHelperService.getHeaders(),true);
+                        closePopup('addEvent','saveEventBtn');
                     }
                     else{
                         $scope.errorArr  = response.data.val_errs;
@@ -323,7 +218,7 @@
                     save.html('SAVE').removeAttr('disabled');
                 },
                 error: function() {
-                    debugger;
+                    alert('Error occured, plz try again.');
                 },
                 headers : HttpHelperService.getHeaders(),
                 dataType: 'json'
@@ -353,7 +248,9 @@
                     if(response.data && response.data.val_err === false) {
                         statusListSpan = angular.element(document.querySelector('#statusListSpan'));
                         statusListSpan.html($scope.contactStatusList[$scope.status_id]);
-                        closePopup('editStatus');
+                        getContactList(userId,HttpHelperService.getHeaders(),true);
+                        getActivityList(userId,HttpHelperService.getHeaders(),true);
+                        closePopup('editStatus','saveStatusBtn');
                     }
                     else{
                         $scope.errorArr  = response.data.val_errs;
@@ -362,7 +259,7 @@
                     save.html('SAVE').removeAttr('disabled');
                 },
                 error: function() {
-                    debugger;
+                    alert('Error occured, plz try again.');
                 },
                 headers : HttpHelperService.getHeaders(),
                 dataType: 'json'
@@ -391,7 +288,9 @@
                     if(response.data && response.data.val_err === false) {
                         rankingListSpan = angular.element(document.querySelector('#rankingListSpan'));
                         rankingListSpan.html($scope.contactRankingList[$scope.rank_id]);
-                        closePopup('editRanking');
+                        getContactList(userId,HttpHelperService.getHeaders(),true);
+                        getActivityList(userId,HttpHelperService.getHeaders(),true);
+                        closePopup('editRanking','saveEventBtn');
                     }
                     else{
                         $scope.errorArr  = response.data.val_errs;
@@ -400,7 +299,7 @@
                     save.html('SAVE').removeAttr('disabled');
                 },
                 error: function() {
-                    debugger;
+                    alert('Error occured, plz try again.');
                 },
                 headers : HttpHelperService.getHeaders(),
                 dataType: 'json'

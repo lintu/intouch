@@ -22,27 +22,29 @@
 </div>
 
 <div class="loaderImgDiv"  id="loaderDiv" >
-    <img src="../img/mdpi/loader.gif" alt="Loading..">
+    <img src="img/loader.gif" alt="Loading..">
 </div>
 
-<div class="overlay ng-hide" id="popupOverlay"></div>
-<div class="modal01  ng-hide" id="addStatus">
-    <div class="whiteBox">
-        <div class="indent">
-            <div class="form01">
-                <h4 id="statusTitle">ADD STATUS</h4>
-                <div class="cf">
-                    <div class="errorMsg">{{errorArr.status}}</div>
-                    <label class="label">Status</label>
-                    <div class="field">
-                        <input type="text" class="input" ng-model="status">
+<div class="popupOuter ng-hide"  id="popupOverlay"> 
+    <div class="overlay"></div>
+    <div class="modal01  ng-hide" id="addStatus">
+        <div class="whiteBox">
+            <div class="indent">
+                <div class="form01">
+                    <h4 id="statusTitle">ADD STATUS</h4>
+                    <div class="cf">
+                        <div class="errorMsg">{{errorArr.status}}</div>
+                        <label class="label">Status</label>
+                        <div class="field">
+                            <input type="text" class="input" ng-model="status">
+                        </div>
                     </div>
-                </div>
-                
-                <div class="btnSec cf">
-                    <input type="hidden" ng-model="editStatusId">
-                    <button type="button" class="save" ng-click="saveStatus()">SAVE</button>
-                    <button type="reset" class="cancel" ng-click="closePopup('addStatus')">CANCEL</button>
+                    
+                    <div class="btnSec cf">
+                        <input type="hidden" ng-model="editStatusId">
+                        <button id="saveStatusBtn" type="button" class="save" ng-click="saveStatus()">SAVE</button>
+                        <button type="reset" class="cancel" ng-click="closePopup('addStatus','saveStatusBtn')">CANCEL</button>
+                    </div>
                 </div>
             </div>
         </div>

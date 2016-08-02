@@ -7,8 +7,8 @@
                 <div class="li"  ng-repeat="(key, activityItem) in activities">
                     <div class="date">{{activityItem.time_label}}</div>
                     <h5>{{activityItem.title}}</h5>
-                    <article >
-                        {{activityItem.details_for_app}}
+                    <article ng-bind-html="activityItem.details_app | rawHtml" >
+                        <!-- {{activityItem.details_for_app}} -->
                     </article>
                 </div>
             </div>
@@ -18,5 +18,5 @@
         </div>
     </div>
     <div class="loaderImgDiv"  id="loaderDiv" >
-        <img src="../img/mdpi/loader.gif" alt="Loading..">
+        <img src="img/loader.gif" alt="Loading..">
     </div>
