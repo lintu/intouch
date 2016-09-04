@@ -73,6 +73,9 @@
         "phonegap-plugin-push": {
             "SENDER_ID": "934104116240",
             "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "com.phonegap.plugins.PushPlugin": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
         }
     },
     "dependent_plugins": {}
